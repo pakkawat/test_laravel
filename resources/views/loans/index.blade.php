@@ -1,11 +1,9 @@
 @extends('layout')
 
 @section('content')
-
-<h1>index</h1>
-<a class="btn btn-primary" href="/loans/create" role="button">Add New Loan</a><br>
 <div class="container">
   <h2>All Loans</h2>
+  <a class="btn btn-primary" href="/loans/create" role="button">Add New Loan</a>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -35,5 +33,4 @@
     </tbody>
   </table>
 </div>
-
 @stop

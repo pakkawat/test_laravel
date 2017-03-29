@@ -1,15 +1,42 @@
 @extends('layout')
 
 @section('content')
-
-<h1>show</h1>
-{{ $loan->id }}<br>
-{{ $loan->loan_amount }}<br>
-{{ $loan->loan_term }}<br>
-{{ $loan->interest_rate }}<br>
-<a class="btn btn-default" href="/loans" role="button">Back</a>
-<hr>
 <div class="container">
+<h1>Loan Details</h1>
+  <table border="0">
+    <tr>
+      <th></th><th></th><th></th><th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>ID</td>
+      <td></td><td></td><td></td>
+      <td>{{ $loan->id }}</td>
+    </tr>
+    <tr>
+      <td>Loan Amount</td>
+      <td></td><td></td><td></td>
+      <td>{{ $loan->loan_amount }}</td>
+    </tr>
+    <tr>
+      <td>Loan Term</td>
+      <td></td><td></td><td></td>
+      <td>{{ $loan->loan_term }}</td>
+    </tr>
+    <tr>
+      <td>Interest Rate</td>
+      <td></td><td></td><td></td>
+      <td>{{ $loan->interest_rate }}</td>
+    </tr>
+    <tr>
+      <td>Created at</td>
+      <td></td><td></td><td></td>
+      <td>{{ $loan->date }}</td>
+    </tr>
+  </table>
+  <br>
+  <a class="btn btn-default" href="/loans" role="button">Back</a>
+  <br>
   <h2>Repayment Schedules</h2>
   <table class="table table-striped">
     <thead>
