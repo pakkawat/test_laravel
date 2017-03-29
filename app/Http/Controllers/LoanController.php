@@ -66,9 +66,9 @@ class LoanController extends Controller
      */
     public function edit(Loan $loan)
     {
-        $date = $loan->repayment_schedules->first()->date
-        $month = date('m', strtotime($date))
-        $year = date('Y', strtotime($date))
+        $date = $loan->repayment_schedules->first()->date;
+        $month = date('m', strtotime($date));
+        $year = date('Y', strtotime($date));
         return view('loans.edit', compact('loan', 'month', 'year'));
     }
 

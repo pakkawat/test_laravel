@@ -31,24 +31,24 @@
   <div class="col-sm-5">
   	<div class="col-sm-6">
       <select class="form-control" name="month" id="month">
-          <option value="01" @php ($month == "01") ? 'selected' : ''; @endphp >January</option>
-          <option value="02" @php ($month == "02") ? 'selected' : ''; @endphp >February</option>
-          <option value="03" @php ($month == "03") ? 'selected' : ''; @endphp >March</option>
-          <option value="04" @php ($month == "04") ? 'selected' : ''; @endphp >April</option>
-          <option value="05" @php ($month == "05") ? 'selected' : ''; @endphp >May</option>
-          <option value="06" @php ($month == "06") ? 'selected' : ''; @endphp >June</option>
-          <option value="07" @php ($month == "07") ? 'selected' : ''; @endphp >July</option>
-          <option value="08" @php ($month == "08") ? 'selected' : ''; @endphp >August</option>
-          <option value="09" @php ($month == "09") ? 'selected' : ''; @endphp >September</option>
-          <option value="10" @php ($month == "10") ? 'selected' : ''; @endphp >October</option>
-          <option value="11" @php ($month == "11") ? 'selected' : ''; @endphp >November</option>
-          <option value="12" @php ($month == "12") ? 'selected' : ''; @endphp >December</option>
+        <option <?php if ($month == "01") echo 'selected' ; ?> value="01">January</option>
+        <option <?php if ($month == "02") echo 'selected' ; ?> value="02">February</option>
+        <option <?php if ($month == "03") echo 'selected' ; ?> value="03">March</option>
+        <option <?php if ($month == "04") echo 'selected' ; ?> value="04">April</option>
+        <option <?php if ($month == "05") echo 'selected' ; ?> value="05">May</option>
+        <option <?php if ($month == "06") echo 'selected' ; ?> value="06">June</option>
+        <option <?php if ($month == "07") echo 'selected' ; ?> value="07">July</option>
+        <option <?php if ($month == "08") echo 'selected' ; ?> value="08">August</option>
+        <option <?php if ($month == "09") echo 'selected' ; ?> value="09">September</option>
+        <option <?php if ($month == "10") echo 'selected' ; ?> value="10">October</option>
+        <option <?php if ($month == "11") echo 'selected' ; ?> value="11">November</option>
+        <option <?php if ($month == "12") echo 'selected' ; ?> value="12">December</option>
       </select>
     </div>
   	<div class="col-sm-6">
       <select class="form-control" name="year" id="year">
         @for ($i = 2017; $i <= 2050; $i++)
-          <option value="{{ $i }}" @php ($year == $i) ? 'selected' : ''; @endphp >{{ $i }}</option>
+          <option <?php if ($year == $i) echo 'selected' ; ?> value="{{ $i }}">{{ $i }}</option>
         @endfor
       </select>
     </div>

@@ -9,7 +9,7 @@
       <th></th>
     </tr>
     <tr>
-      <td>ID</td>
+      <td width="200px;">ID</td>
       <td></td><td></td><td></td>
       <td>{{ $loan->id }}</td>
     </tr>
@@ -54,10 +54,10 @@
         <tr>
           <td>{{ $repayment_schedule->payment_no }}</td>
           <td>{{ date('M Y', strtotime($repayment_schedule->date)) }}</td>
-          <td>{{ $repayment_schedule->payment_amount }}</td>
-          <td>{{ $repayment_schedule->principal }}</td>
-          <td>{{ $repayment_schedule->interest }}</td>
-          <td>{{ $repayment_schedule->balance }}</td>
+          <td>{{ round($repayment_schedule->payment_amount, 2) }}</td>
+          <td>{{ round($repayment_schedule->principal, 2) }}</td>
+          <td>{{ round($repayment_schedule->interest, 2) }}</td>
+          <td>{{ round($repayment_schedule->balance, 2) }}</td>
         </tr>
       @endforeach
     </tbody>
