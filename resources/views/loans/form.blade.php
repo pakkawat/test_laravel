@@ -1,3 +1,11 @@
+@if (count($errors))
+  <ul>
+    @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+@endif
+
 {!! csrf_field() !!}
 <div class="form-group">
   <label class="control-label col-sm-2">Loan Amount:</label>
