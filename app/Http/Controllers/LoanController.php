@@ -112,7 +112,7 @@ class LoanController extends Controller
         }
     }
 
-    public function getPMT(Loan $loan)
+    public function getPMT($loan)
     {
         $P = $loan->loan_amount;
         $r = $loan->interest_rate/100;
@@ -122,11 +122,11 @@ class LoanController extends Controller
         return $PMT;
     }
 
-    public function getInterest(Loan $loan)
+    public function getInterest($loan)
     {
         $interest = 0;
         $r = $loan->interest_rate/100;
-        $repayment_schedule = $loan->repayment_schedules->last();
+        $repayment_schedule = Repayment_schedule::where('loan_id',$loan->id)->orderBy('id', 'desc')->take(1)->get()->first();
         if($repayment_schedule == null )
         {
             $interest = ($r/12)*$loan->loan_amount;
@@ -143,17 +143,17 @@ class LoanController extends Controller
         return $PMT-$interest;
     }
 
-    public function getBalance(Loan $loan, $principal)
+    public function getBalance($loan, $principal)
     {
         $balance = 0;
-        $repayment_schedule = $loan->repayment_schedules->last();
+        $repayment_schedule = Repayment_schedule::where('loan_id',$loan->id)->orderBy('id', 'desc')->take(1)->get()->first();
         if($repayment_schedule == null )
         {
             $balance = $loan->loan_amount - $principal;
         }
         else
         {
-          $interest = $repayment_schedule->balance - $principal;
+          $balance = $repayment_schedule->balance - $principal;
         }
         return $balance;
     }
