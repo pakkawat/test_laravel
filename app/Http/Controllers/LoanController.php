@@ -26,7 +26,9 @@ class LoanController extends Controller
     public function create()
     {
         $loan = new Loan;
-        return view('loans.create', compact('loan'));
+        $month = "01";
+        $year = "2017";
+        return view('loans.create', compact('loan', 'month', 'year'));
     }
 
     /**
@@ -37,6 +39,11 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+          'loan_amount' => 'required|integer|min:1000|max:100000000',
+          'loan_term' => 'required|integer|min:1|max:50',
+          'interest_rate' => 'required|between:1.00,36.00',
+        ]);
         $loan = Loan::create($request->all());
         $this->generate_repayment_schedule($request->year.'-'.$request->month, $loan);
         //$request->month
