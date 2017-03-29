@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
 use App\Loan;
+use App\Repayment_schedule;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
@@ -38,6 +38,7 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $loan = Loan::create($request->all());
+        $this->generate_repayment_schedule($request->year + '-' + $request->month, $loan);
         //$request->month
         //$request->year
         //$loan->repayment_schedules()->save(#repayment_schedule)
@@ -91,5 +92,69 @@ class LoanController extends Controller
     {
         $loan->delete();
         return back();
+    }
+
+    public function generate_repayment_schedule($date, Loan $loan)
+    {
+        $date = strtotime($date);
+        for($i = 1; $i <= $loan->loan_term*12; $i++)
+        {
+            $repayment_schedule = new Repayment_schedule;
+            $repayment_schedule->payment_no = $i;
+            $repayment_schedule->date = date('M Y', $date);
+            $repayment_schedule->payment_amount = $this->getPMT(Loan $loan);
+            $repayment_schedule->interest = $this->getInterest(Loan $loan);
+            $repayment_schedule->principal = $this->getPrincipal($repayment_schedule->payment_amount, $repayment_schedule->interest);
+            $repayment_schedule->balance = $this->getBalance(Loan $loan, $repayment_schedule->principal);
+
+            $loan->repayment_schedules()->save($repayment_schedule)
+            $date = strtotime( "+1 month", $date );
+        }
+    }
+
+    public function getPMT(Loan $loan)
+    {
+        $P = $loan->loan_amount;
+        $r = $loan->interest_rate/100;
+        $Y = $loan->loan_term*12;
+        $base = 1+($r/12);
+        $PMT = ($P*($r/12))/(1-pow($base, -$Y));
+        return $PMT;
+    }
+
+    public function getInterest(Loan $loan)
+    {
+        $interest = 0;
+        $r = $loan->interest_rate/100;
+        $repayment_schedule = $loan->repayment_schedules()->latest()->first();
+        if($repayment_schedule == null )
+        {
+            $interest = ($r/12)*$loan->loan_amount;
+        }
+        else
+        {
+          $interest = ($r/12)*$repayment_schedule->balance;
+        }
+        return $interest;
+    }
+
+    public function getPrincipal($PMT, $interest)
+    {
+        return $PMT-$interest;
+    }
+
+    public function getBalance(Loan $loan, $principal)
+    {
+        $balance = 0;
+        $repayment_schedule = $loan->repayment_schedules()->latest()->first();
+        if($repayment_schedule == null )
+        {
+            $balance = $loan->loan_amount - $principal;
+        }
+        else
+        {
+          $interest = $repayment_schedule->balance - $principal;
+        }
+        return $balance;
     }
 }
