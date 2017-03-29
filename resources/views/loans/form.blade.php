@@ -30,7 +30,7 @@
   <label class="control-label col-sm-2">Start Date:</label>
   <div class="col-sm-5">
   	<div class="col-sm-6">
-      <select class="form-control" id="month">
+      <select class="form-control" name="month" id="month">
           <option value="01">January</option>
           <option value="02">February</option>
           <option value="03">March</option>
@@ -46,7 +46,7 @@
       </select>
     </div>
   	<div class="col-sm-6">
-      <select class="form-control" id="year">
+      <select class="form-control" name="year" id="year">
         @for ($i = 2017; $i <= 2050; $i++)
           <option value="{{ $i }}">{{ $i }}</option>
         @endfor

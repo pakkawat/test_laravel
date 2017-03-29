@@ -38,7 +38,7 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $loan = Loan::create($request->all());
-        $this->generate_repayment_schedule($request->year + '-' + $request->month, $loan);
+        $this->generate_repayment_schedule($request->year.'-'.$request->month, $loan);
         //$request->month
         //$request->year
         //$loan->repayment_schedules()->save(#repayment_schedule)
@@ -101,13 +101,13 @@ class LoanController extends Controller
         {
             $repayment_schedule = new Repayment_schedule;
             $repayment_schedule->payment_no = $i;
-            $repayment_schedule->date = date('M Y', $date);
-            $repayment_schedule->payment_amount = $this->getPMT(Loan $loan);
-            $repayment_schedule->interest = $this->getInterest(Loan $loan);
+            $repayment_schedule->date = date('Y-m-d H:i:s', $date);
+            $repayment_schedule->payment_amount = $this->getPMT($loan);
+            $repayment_schedule->interest = $this->getInterest($loan);
             $repayment_schedule->principal = $this->getPrincipal($repayment_schedule->payment_amount, $repayment_schedule->interest);
-            $repayment_schedule->balance = $this->getBalance(Loan $loan, $repayment_schedule->principal);
+            $repayment_schedule->balance = $this->getBalance($loan, $repayment_schedule->principal);
 
-            $loan->repayment_schedules()->save($repayment_schedule)
+            $loan->repayment_schedules()->save($repayment_schedule);
             $date = strtotime( "+1 month", $date );
         }
     }
@@ -126,7 +126,7 @@ class LoanController extends Controller
     {
         $interest = 0;
         $r = $loan->interest_rate/100;
-        $repayment_schedule = $loan->repayment_schedules()->latest()->first();
+        $repayment_schedule = $loan->repayment_schedules->last();
         if($repayment_schedule == null )
         {
             $interest = ($r/12)*$loan->loan_amount;
@@ -146,7 +146,7 @@ class LoanController extends Controller
     public function getBalance(Loan $loan, $principal)
     {
         $balance = 0;
-        $repayment_schedule = $loan->repayment_schedules()->latest()->first();
+        $repayment_schedule = $loan->repayment_schedules->last();
         if($repayment_schedule == null )
         {
             $balance = $loan->loan_amount - $principal;

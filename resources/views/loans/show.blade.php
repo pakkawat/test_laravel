@@ -23,10 +23,10 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($loan->repayment_schedules() as $repayment_schedule)
+      @foreach($loan->repayment_schedules as $repayment_schedule)
         <tr>
           <td>{{ $repayment_schedule->payment_no }}</td>
-          <td>{{ $repayment_schedule->date }}</td>
+          <td>{{ date('M Y', strtotime($repayment_schedule->date)) }}</td>
           <td>{{ $repayment_schedule->payment_amount }}</td>
           <td>{{ $repayment_schedule->principal }}</td>
           <td>{{ $repayment_schedule->interest }}</td>
