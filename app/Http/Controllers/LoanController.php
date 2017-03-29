@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use APP\Loan;
+use DB;
+use App\Loan;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
@@ -13,7 +14,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $loans = DB::table('loans')->get();
+        $loans = Loan::all();
         return view('loans.index', compact('loans'));
     }
 
@@ -24,7 +25,8 @@ class LoanController extends Controller
      */
     public function create()
     {
-        return view('loans.create');
+        $loan = new Loan;
+        return view('loans.create', compact('loan'));
     }
 
     /**
@@ -39,7 +41,8 @@ class LoanController extends Controller
         //$request->month
         //$request->year
         //$loan->repayment_schedules()->save(#repayment_schedule)
-        alert()->success('Loan has been added.');
+        //alert()->success('Loan has been added.');
+        //return $request->all();
         return view('loans.show', compact('loan'));
     }
 
@@ -72,9 +75,10 @@ class LoanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Loan $loan)
     {
-        //
+        $loan->update($request->all());
+        return back();
     }
 
     /**

@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('loans', 'LoanController');
+Route::get('/loans/{loan}/delete', ['as' => 'loans.delete', 'uses' => 'LoanController@destroy']);

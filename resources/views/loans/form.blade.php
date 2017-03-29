@@ -1,8 +1,9 @@
+{!! csrf_field() !!}
 <div class="form-group">
   <label class="control-label col-sm-2">Loan Amount:</label>
   <div class="col-sm-5">
     <div class="input-group">
-      <input type="text" class="form-control" id="loan_amount" value="{{ old('loan_amount', @$loan->loan_amount) }}">
+      <input type="text" class="form-control" name="loan_amount" id="loan_amount" value="{{ $loan->loan_amount }}">
       <div class="input-group-addon">฿</div>
     </div>
   </div>
@@ -11,7 +12,7 @@
   <label class="control-label col-sm-2">Loan Term:</label>
   <div class="col-sm-5">
     <div class="input-group">
-      <input type="text" class="form-control" id="loan_term" value="{{ old('loan_term', @$loan->loan_term) }}">
+      <input type="text" class="form-control" name="loan_term" id="loan_term" value="{{ $loan->loan_term }}">
       <div class="input-group-addon">Years</div>
     </div>
   </div>
@@ -20,7 +21,7 @@
   <label class="control-label col-sm-2">Interest Rate:</label>
   <div class="col-sm-5">
     <div class="input-group">
-      <input type="text" class="form-control" id="interest_rate" value="{{ old('interest_rate', @$loan->interest_rate) }}">
+      <input type="text" class="form-control" name="interest_rate" id="interest_rate" value="{{ $loan->interest_rate }}">
       <div class="input-group-addon">%</div>
     </div>
   </div>
@@ -47,7 +48,7 @@
   	<div class="col-sm-6">
       <select class="form-control" id="year">
         @for ($i = 2017; $i <= 2050; $i++)
-          <option value="{{ i }}">{{ i }}</option>
+          <option value="{{ $i }}">{{ $i }}</option>
         @endfor
       </select>
     </div>

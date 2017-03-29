@@ -28,7 +28,7 @@
           <td>
             <a href="/loans/{{ $loan->id }}" class="btn btn-info">View</a>
             <a href="/loans/{{ $loan->id }}/edit" class="btn btn-success">Edit</a>
-            <a href="{{ route('$loan.delete', $loan->id) }}" class="btn btn-danger">Delete</a>
+            <a href="/loans/{{ $loan->id }}/delete" class="btn btn-danger">Delete</a>
           </td>
         </tr>
       @endforeach
